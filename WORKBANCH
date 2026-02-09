@@ -1,0 +1,149 @@
+-- DQL :SELECT 
+SELECT NOME
+FROM USUARIO
+WHERE id=1;
+
+-- select com duas colunas
+select nome, email
+from usuario;
+
+select
+  modelo, 
+  placa,
+  ano_fabricacao,
+  cor,
+  id_usuario
+from veiculo;
+
+-- select com 2 condições
+SELECT
+	modelo,
+    placa,
+    ano_fabricacao,
+    cor,
+    id_usuario
+from veiculo
+where id_usuario = 1 and cor='Prata';
+
+-- encontrar carros entre anos de fabricação
+SELECT
+	model,
+    placa,
+    ano_fabricacao,
+    cor,
+    id_usuario
+from veiculo
+where ano_fabricacao between '2018' and '2020';
+
+
+-- encontrar nomes que comecam com a letra escolhida
+-- C%- início, %C- fim, %c%- meio
+select
+    nome, email
+from usuario 
+where nome like 'C%';
+
+
+select 
+  nome, email
+  from usuario 
+  where nome is not null;
+  
+  
+-- ordenar em ordem alfabetica 
+select
+  modelo, 
+  placa,
+  ano_fabricacao,
+  cor,
+  id_usuario
+from veiculo
+order by modelo;
+-- do fim para o comeco
+-- order by modelo desc
+
+
+SELECT VALOR, DT_CONSUMO, TIPO, ID_VEICULO
+FROM CONSUMO;
+
+-- CONTAR O REGISTRO DOS VEICULOS
+SELECT
+  VALOR, 
+  TIPO,
+  COUNT(ID_VEICULO) AS QUANTIDADE
+  FROM CONSUMO
+  group by ID_VEICULO;
+
+-- SOMAR O VALOR GASTO PELO VEICULO SELECIONADO
+SELECT 
+ID_VEICULO,
+    SUM(VALOR)
+FROM CONSUMO
+WHERE ID_VEICULO = 4;
+
+-- VALOR ACRESCENTADO COM 10%
+SELECT 
+  ID_VEICULO,
+  VALOR,
+  VALOR * 1.1 AS 'VALOR_COM_10%'
+FROM CONSUMO;
+
+-- VALOR SUBTRAIDO 10%
+SELECT 
+  ID_VEICULO,
+  VALOR,
+  VALOR * 0.1 AS 'VALOR_COM_10%'
+FROM CONSUMO
+
+/* CHECKLIST DE COMANDOS DQL
+WHERE
+AND, OR E NOT 
+IS NULL
+IS NOT NULL
+BETWEEN
+LIKE
+LIMIT
+ORDER BY ASC E DESC
+GROUP BY
+COUNT
+SUM
+AVG
+MIN
+MAX
+OPERADORES ARITIMETICOS (+ - * / > < >= <= )
+*/;
+
+
+-- LEFT JOIN, JOIN, RIGHT JOIN, 
+SELECT
+    U.ID,
+    U.NOME,
+    V.MODELO,
+    V.PLACA,
+    V.COR
+FROM USUARIO U
+JOIN VEICULO V
+ON V.ID_USUARIO = U.ID;
+
+
+SELECT
+    U.ID,
+    U.NOME,
+    V.MODELO,
+    V.PLACA,
+    V.COR,
+    SUM(C.VALOR) AS TOTAL_GASTO,
+    COUNT(C.ID) AS QTD
+FROM USUARIO U
+JOIN VEICULO V
+    ON V.ID_USUARIO = U.ID
+JOIN CONSUMO C
+    ON C.ID_VEICULO = V.ID
+GROUP BY
+    U.ID, U.NOME, V.MODELO, V.PLACA, V.COR
+HAVING TOTAL_GASTO BETWEEN 200 AND 300
+ORDER BY TOTAL_GASTO DESC
+LIMIT 1;
+
+
+-- HAVING = WHERE, USADO NO JOIN.
