@@ -55,6 +55,28 @@ VALUES
 -- apaga os valpres da tabela 
 -- TRUNCATE TABLE VEICULO;
 -------------------------------------------------------------------------------------------------
+CREATE TABLE CONSUMO(
+  ID INT PRIMARY KEY auto_increment,
+  VALOR DECIMAL(10,2) NOT NULL,
+  TIPO BIT NOT NULL,
+  DT_CONSUMO DATETIME default NOW(),
+  ID_VEICULO INT
+);
+
+ALTER TABLE CONSUMO
+ADD CONSTRAINT FK_VEICULO
+FOREIGN KEY (ID_VEICULO)
+references VEICULO(ID)
+ON DELETE CASCADE;
+
+SELECT * FROM veiculo;
+
+INSERT INTO CONSUMO
+  (VALOR, TIPO, ID_VEICULO)
+VALUES 
+   (55, 0, 4); 
+   
+----------------------------------------------------------------------------------------------
 -- DQL :SELECT 
 SELECT NOME
 FROM USUARIO
