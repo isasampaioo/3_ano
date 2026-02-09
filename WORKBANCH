@@ -1,3 +1,60 @@
+CREATE DATABASE gerenciamento_usuario;
+
+USE gerenciamento_usuario;
+
+CREATE TABLE USUARIO (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    NOME VARCHAR(255) NOT NULL,
+    EMAIL  VARCHAR(255) NOT NULL,
+    SENHA VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE veiculo (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    MODELO VARCHAR(45) NOT NULL,
+    PLACA VARCHAR(45) NOT NULL,
+    ANO_FABRICACAO VARCHAR(45) NOT NULL,
+    COR VARCHAR(45) NOT NULL,
+    id_USUARIO INT,
+    FOREIGN KEY (id_USUARIO)
+        REFERENCES `USUARIO`(id)
+);
+
+-- COMANDO PARA DESCREVER A TABELA 
+DESC VEICULO;
+SHOW TABLES; 
+
+ALTER TABLE VEICULO
+ADD constraint FK_USUARIO
+FOREIGN KEY (ID_USUARIO)
+REFERENCES USUARIO(ID)
+ON DELETE CASCADE;
+
+
+-- DML: MANIPULAÇÃO DPS DADOS
+-- INSERT
+
+INSERT INTO
+   USUARIO(NOME, EMAIL, SENHA)
+VALUES
+   ('Isabella', 'isabella@email.com', '@123senha'),
+   ('Calebe', 'calebe@email.com', 'senha@321');     
+   
+   
+-- UPDATE 
+UPDATE USUARIO 
+SET NOME = 'Isabella'
+where id= 1;
+
+INSERT INTO
+VEICULO(MODELO, PLACA, ANO_FABRICACAO, COR, id_USUARIO)
+VALUES
+   ('Fusca bumblebee', 'abc-123', '2010', 'amarelo', 1)
+
+-- NAO É PARA EXECUTAR
+-- apaga os valpres da tabela 
+-- TRUNCATE TABLE VEICULO;
+-------------------------------------------------------------------------------------------------
 -- DQL :SELECT 
 SELECT NOME
 FROM USUARIO
